@@ -1,0 +1,91 @@
+---
+title: "VEP"
+author: "Sarah Dudgeon"
+date: "4/25/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+Load the data
+```{r}
+#load the data
+dat <- read.delim('VEPoutput.txt')
+dat <- data.frame(dat)
+```
+
+Investigate the data
+```{r}
+colnames(dat)
+tab <- sort(table(dat$SYMBOL))
+length(tab)
+print(tab[1156:1165])
+```
+
+Create a csv file of the top variants
+```{r}
+out1 <- dat[dat$SYMBOL == 'FARP1'|
+            dat$SYMBOL == 'DIAPH3'|
+            dat$SYMBOL == 'CCDC169'|
+            dat$SYMBOL == 'TRPC4'|
+            dat$SYMBOL == 'MYO16'|
+            dat$SYMBOL == 'ATP8A2'|
+            dat$SYMBOL == 'MCF2L'|
+            dat$SYMBOL == 'PCDH9'|
+            dat$SYMBOL == 'DLEU1'|
+            dat$SYMBOL == 'RNF219-AS1'
+            , ]
+write.csv(out1,"out1.csv", row.names = FALSE)
+```
+
+
+
+Extra Credit:
+Investigate variants with High impact
+```{r}
+#create the subsetted data
+dat2 <- dat[dat$IMPACT == 'HIGH', ]
+
+#evaluate top variants
+tab2 <- sort(table(dat2$SYMBOL))
+length(tab2)
+print(tab2)
+```
+
+
+Just for fun:
+Investigate variants with high and moderate impact
+```{r}
+#create the subsetted data
+dat3 <- dat[dat$IMPACT == 'HIGH' | dat$IMPACT == 'MODERATE' , ]
+
+#evaluate top variants
+tab3 <- sort(table(dat3$SYMBOL))
+length(tab3)
+print(tab3[90:102])
+```
+
+
+Create a csv file of the top variants
+```{r}
+out2 <- dat[dat$SYMBOL == 'FLT3'|
+            dat$SYMBOL == 'TBC1D4'|
+            dat$SYMBOL == 'MYO16'|
+            dat$SYMBOL == 'ATP11A'|
+            dat$SYMBOL == 'PARP4'|
+            dat$SYMBOL == 'CCDC169'|
+            dat$SYMBOL == 'COG6'|
+            dat$SYMBOL == 'ZMYM5'|
+            dat$SYMBOL == 'LMO7'|
+            dat$SYMBOL == 'ATP7B'
+            , ]
+write.csv(out2,"out2.csv", row.names = FALSE)
+```
+
+
+
+
+
